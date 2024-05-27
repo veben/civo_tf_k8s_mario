@@ -14,16 +14,16 @@ resource "civo_kubernetes_cluster" "cluster" {
 
 resource "local_file" "cluster-config" {
   content              = civo_kubernetes_cluster.cluster.kubeconfig
-  filename             = "${path.module}/${var.kube_config_path}"
+  filename             = pathexpand(var.kube_config_path)
   file_permission      = "0600"
   directory_permission = "0755"
 }
 
 resource "helm_release" "mario" {
-  name       = "mario-bros"
-  repository = "https://veben.github.io/helm_charts/"
-  chart      = "mario-bros"
-  version    = "0.4.0"
+  name       = var.chart_name
+  repository = var.chart_repository
+  chart      = var.chart_name
+  version    = var.chart_version
 
   depends_on = [local_file.cluster-config]
 }

@@ -34,5 +34,20 @@ variable "kubernetes_api_access" {
 
 variable "kube_config_path" {
   type    = string
-  default = "config/config.yaml"
+  default = "~/.kube/civo_tf_k8s_mario_config.yaml"
+}
+
+variable "chart_name" {
+  type    = string
+  default = "mario-bros"
+}
+
+variable "chart_version" {
+  type    = string
+  default = "0.4.0"
+}
+
+variable "chart_repository" {
+  type    = string
+  default = "https://veben.github.io/helm_charts/"
 }
